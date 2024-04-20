@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Геометрические фигуры</title>
+</head>
+<body>
+    <h1>Геометрические фигуры</h1>
+    <div id="output"></div>
+    <script>
+        // Создаем абстрактный класс Shape
+        class Shape {
+    constructor() {
+        if (new.target === Shape) {
+            throw new Error("Нельзя создать экземпляр абстрактного класса Shape");
+        }
+    }
+    calculateArea() {
+        throw new Error("Метод calculateArea должен быть реализован в наследниках");
+    }
+}
+
+
+        // Создаем классы-наследники
+        class Circle extends Shape {
+    #radius;
+    constructor(radius) {
+        super();
+        this.#radius = radius;
+    }
+    calculateArea() {
+        return Math.PI * this.#radius * this.#radius;
+    }
+}
+
+
+class Rectangle extends Shape {
+    #width;
+    #height;
+    constructor(width, height) {
+        super();
+        this.#width = width;
+        this.#height = height;
+    }
+    calculateArea() {
+        return this.#width * this.#height;
+    }
+}
+
+
+        // Создаем объекты фигур и выводим их площади
+        const circle = new Circle(5);
+        const rectangle = new Rectangle(4, 6);
+
+        // Вывод информации о фигурах
+        const outputDiv = document.getElementById('output');
+        outputDiv.innerHTML += `<p>Площадь круга: ${circle.calculateArea()}</p>`;
+        outputDiv.innerHTML += `<p>Площадь прямоугольника: ${rectangle.calculateArea()}</p>`;
+    </script>
+</body>
+</html>

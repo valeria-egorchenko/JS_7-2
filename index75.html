@@ -1,0 +1,89 @@
+<!DOCTYPE html>    
+<html lang="ru">    
+<head>    
+ <meta charset="UTF-8">    
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+ <title>Преобразование объекта в массив и сравнение</title>    
+</head>    
+<body>    
+ <h1>Преобразование объекта в массив и сравнение</h1>    
+ <script>    
+ class Student {    
+ constructor(name, age, scores) {    
+ this.name = name;    
+ this.age = age;    
+ this.scores = scores;    
+ }    
+ getAverageScore() {    
+ const sum = this.scores.reduce((total, score) => total + score, 0);    
+ return sum / this.scores.length;    
+ }    
+ }    
+    
+ const students = [];
+let name = null; // Инициализация переменной name
+
+while (true) {
+  do {
+    name = prompt('Введите имя студента (или "end" для завершения ввода):');
+    if (!/^[A-Za-zА-Яа-яЁё\s]+$/.test(name) || name.trim() === '' || /[-!$%^&*()_+|~=`{}[\]:";'<>?,./]/.test(name)) {
+      alert('Ошибка! Имя студента некорректно. Введите имя заново');
+    }
+  } while (!name || !/^[A-Za-zА-Яа-яЁё\s]+$/.test(name) || name.trim() === '' || /[-!$%^&*()_+|~=`{}[\]:";'<>?,./]/.test(name));
+
+  if (name === 'end') {
+    break;
+  }
+    
+ let age;   
+ do {   
+    age = parseInt(prompt('Введите возраст студента:'));   
+    if (isNaN(age)) {   
+        alert('Ошибка! Возраст должен быть числом. Введите возраст заново');   
+    }   
+ } while (isNaN(age));   
+    
+ let scoresInput;   
+ do {   
+    scoresInput = prompt('Введите оценки студента через запятую (например, "9, 5, 7"):');   
+    if (!scoresInput) {   
+        alert('Ошибка! Введите оценки заново.');   
+    } else {   
+        const scores = scoresInput.split(',').map(score => parseInt(score.trim()));   
+        if (scores.some(isNaN) || scores.some(score => score <= 0) || scores.some(score => score >= 10)) {   
+            alert('Ошибка! Введите положительные целые числа для оценок от 1 до 10.');   
+        } else {   
+            const student = new Student(name, age, scores);   
+            students.push(student);   
+        }   
+    }   
+ } while (!scoresInput);   
+ }    
+    
+ const studentsArray = students.map(student => ({  
+ name: student.name,  
+ age: student.age,  
+ averageScore: student.getAverageScore(),  
+ }));    
+    
+ let highestAverageScore = -1;    
+ let topStudent = null;    
+ for (const student of studentsArray) {    
+ if (student.averageScore > highestAverageScore) {    
+ highestAverageScore = student.averageScore;    
+ topStudent = student;    
+ }    
+ }    
+    
+ const outputDiv = document.getElementById('output');    
+ outputDiv.innerHTML += `<p>Студент с наивысшим средним баллом: </p>`;    
+ outputDiv.innerHTML += `<p>Имя: ${topStudent.name}</p>`;    
+ outputDiv.innerHTML += `<p>Возраст: ${topStudent.age}</p>`;    
+ outputDiv.innerHTML += `<p>Средний балл: ${topStudent.averageScore}</p>`;    
+    
+ </script>    
+    
+ <div id="output"></div>    
+    
+</body>    
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <title>Пример 72</title>
+</head>
+<body>
+    <div id="output"></div>
+    <script type="text/javascript">
+        // Класс для товара
+        class Product {
+            constructor(name, price) {
+                this.name = name;
+                this.price = price;
+            }
+        }
+
+        // Класс для управления списком товаров
+        class ShoppingCart {
+            constructor() {
+                this.products = [];
+            }
+
+            // Метод для добавления товара
+            addProduct() {
+                const name = prompt('Введите название товара:');
+                const price = parseFloat(getValidInput('Введите цену товара:'));
+                const product = new Product(name, price);
+                this.products.push(product);
+                displayMessage(`Товар "${name}" добавлен в корзину.`);
+            }
+
+            // Метод для подсчета общей стоимости товаров
+            getTotalPrice() {
+                let totalPrice = 0;
+                for (const product of this.products) {
+                    totalPrice += product.price;
+                }
+                return totalPrice;
+            }
+
+            // Метод для вывода списка товаров
+            displayProducts() {
+                let productList = 'Список товаров в корзине:<br>';
+                for (const product of this.products) {
+                    productList += `${product.name}: $${product.price}<br>`;
+                }
+                displayMessage(productList);
+            }
+        }
+
+        // Функция для получения валидного числового ввода от пользователя
+        function getValidInput(promptMessage) {
+            let input;
+            do {
+                input = prompt(promptMessage);
+                if (!isValidNumber(input)) {
+                    alert('Ошибка! Введите корректное положительное число.');
+                }
+            } while (!isValidNumber(input));
+            return input;
+        }
+
+        // Функция для проверки, что введенное значение является положительным числом
+        function isValidNumber(value) {
+            const parsedValue = parseFloat(value);
+            return !isNaN(parsedValue) && isFinite(parsedValue) && parsedValue >= 0;
+        }
+
+        // Функция для отображения сообщения на странице
+        function displayMessage(message) {
+            const outputDiv = document.getElementById('output');
+            const messageParagraph = document.createElement('p');
+            messageParagraph.innerHTML = message;
+            outputDiv.appendChild(messageParagraph);
+        }
+
+        // Создаем экземпляр класса ShoppingCart
+        const cart = new ShoppingCart();
+
+        // Пример использования
+        while (true) {
+            const action = prompt('Выберите действие: "add" (добавить товар), "total" (подсчитать общую стоимость), "list" (вывести список товаров), "exit" (выход):');
+            if (action === 'add') {
+                cart.addProduct();
+            } else if (action === 'total') {
+                const total = cart.getTotalPrice();
+                displayMessage(`Общая стоимость товаров в корзине: $${total}`);
+            } else if (action === 'list') {
+                cart.displayProducts();
+            } else if (action === 'exit') {
+                break;
+            } else {
+                displayMessage('Неверная команда. Попробуйте снова.');
+            }
+        }
+    </script>
+</body>
+</html>

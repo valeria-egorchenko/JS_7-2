@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Работа с книгами</title>
+</head>
+<body>
+ <h1>Работа с книгами</h1>
+ <div id="output"></div>
+ <script>
+ // Класс для представления информации о книгах
+class Book {
+  constructor(title, author, year) {
+    this.title = title;
+    this.author = author;
+    this.year = year;
+  }
+
+  // Метод для красивого вывода информации о книге
+  getInfo() {
+    return `Название: ${this.title}, Автор: ${this.author}, Год выпуска: ${this.year}`;
+  }
+}
+
+// Функция для ввода данных о книге с клавиатуры
+function inputBookData() {
+  let title, author, year;
+
+  // Ввод названия книги
+  do {
+    title = prompt('Введите название книги:');
+    if (!/^[A-Za-zА-Яа-яЁё\s]+$/.test(title) || title.trim() === '') {
+      alert('Ошибка! Название книги некорректно. Введите название книги заново');
+    }
+  } while (!title || !/^[A-Za-zА-Яа-яЁё\s]+$/.test(title) || title.trim() === '');
+
+  // Ввод автора книги
+
+do {
+    author = prompt('Введите автора книги:');
+    
+    if (!/^[A-Za-zА-Яа-яЁё\s]+$/.test(author) || author.trim() === '') {
+        alert('Ошибка! Имя автора некорректно. Введите имя автора заново');
+    }
+} while (!author || !/^[A-Za-zА-Яа-яЁё\s]+$/.test(author) || author.trim() === '');
+
+// Далее можно продолжить работу с переменной author, которая содержит корректное значение автора книги
+
+
+  // Ввод года выпуска книги
+  do {
+    const yearInput = prompt('Введите год выпуска книги (целое положительное число):');
+    year = parseInt(yearInput);
+    if (!Number.isInteger(year) || year <= 0) {
+      alert('Ошибка! Год выпуска должен быть положительным целым числом.');
+    }
+  } while (!Number.isInteger(year) || year <= 0);
+
+  return new Book(title, author, year);
+}
+
+// Ввод данных о двух книгах
+const book1 = inputBookData();
+const book2 = inputBookData();
+
+// Копирование одной из книг с методами
+const copiedBook = Object.assign(Object.create(Object.getPrototypeOf(book1)), book1);
+
+// Сравнение книг
+const areBooksEqual = JSON.stringify(book1) === JSON.stringify(book2);
+
+// Вывод результатов на экран
+const outputDiv = document.getElementById('output');
+outputDiv.innerHTML += `<p>Информация о книге 1:</p>`;
+outputDiv.innerHTML += `<p>${book1.getInfo()}</p>`;
+outputDiv.innerHTML += `<p>Информация о книге 2:</p>`;
+outputDiv.innerHTML += `<p>${book2.getInfo()}</p>`;
+outputDiv.innerHTML += `<p>Книга 1 и книга 2 ${areBooksEqual ? 'одинаковые' : 'разные'}.</p>`;
+
+
+ </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML> 
+<html lang="ru"> 
+<head> 
+ <title>Пример 72</title> 
+</head> 
+<body> 
+<div id="output"></div> 
+<form id="shoppingForm"> 
+    <button type="button" onclick="addProduct()">Добавить товар</button> 
+    <button type="button" onclick="calculateTotal()">Подсчитать общую стоимость</button> 
+    <button type="button" onclick="displayProducts()">Вывести список товаров</button> 
+</form> 
+<script> 
+    const products = []; 
+    function addProduct() { 
+        let validName = false;
+        let nameInput;
+        while (!validName) {
+            nameInput = prompt('Введите название товара:');
+            if (nameInput && /^[A-Za-z0-9]+$/.test(nameInput)) {
+                validName = true;
+            } else {
+                alert('Введите корректное название товара.');
+            }
+        }
+        
+        let validPrice = false;
+        let price;
+        while (!validPrice) {
+            const priceInput = prompt('Введите стоимость товара:');
+            price = parseFloat(priceInput);
+            if (!isNaN(price) && isFinite(price) && price >= 0) {
+                validPrice = true;
+            } else {
+                alert('Введите корректную стоимость товара.');
+            }
+        }
+
+        
+        products.push({ name: nameInput, price }); 
+    } 
+    function calculateTotal() { 
+        const total = products.reduce((acc, product) => acc + product.price, 0); 
+        displayMessage(`Общая стоимость: $${total.toFixed(2)}`); 
+    } 
+    function displayProducts() { 
+        let productList = 'Список товаров:<br>'; 
+        for (const product of products) { 
+            productList += `${product.name}: $${product.price.toFixed(2)}<br>`; 
+        } 
+        displayMessage(productList); 
+    } 
+    function displayMessage(message) { 
+        const outputDiv = document.getElementById('output'); 
+        const messageParagraph = document.createElement('p'); 
+        messageParagraph.innerHTML = message; 
+        outputDiv.appendChild(messageParagraph); 
+    } 
+</script> 
+</body> 
+</html>

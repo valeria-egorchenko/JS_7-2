@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Управление банковским счетом</title>
+</head>
+<body>
+    <h1>Управление банковским счетом</h1>
+    <div id="output"></div>
+    <script>
+// Создаем класс BankAccount
+        class BankAccount {
+        constructor(owner, balance) {
+          this.owner = owner;
+          this.balance = balance;
+        }
+        deposit(amount) {
+            this.balance += amount;
+        }
+        withdraw(amount) {
+         if (amount <= this.balance) {
+            this.balance -= amount;
+        } else {
+        return "Недостаточно средств на счете";
+        }
+        }
+            getBalance() {
+        return this.balance;
+        }
+        }
+ // Запрашиваем данные пользователя
+        let owner;
+            do {
+                owner = prompt('Введите имя владельца счета:');
+                if (!/^[A-Za-zА-Яа-яЁё\s]+$/.test(owner) || owner.trim() === '') {
+            alert('Ошибка! Имя владельца некорректно. Введи заново');
+            }
+            } while (!/^[A-Za-zА-Яа-яЁё\s]+$/.test(owner) || owner.trim() === '');
+ 
+        let initialBalance;
+            do {
+                const input = prompt('Введите начальный баланс счета:');
+            initialBalance = parseFloat(input);
+
+            if (!Number.isInteger(initialBalance)) {
+      alert('Ошибка! Начальный баланс некорректен. Введите значение заново');
+    }
+            } while (!Number.isInteger(initialBalance));
+ 
+ // Создаем объект банковского счета
+ const account = new BankAccount(owner, initialBalance);
+ // Взаимодействие с банковским счетом
+ account.deposit(1000);
+ account.withdraw(500);
+ // Вывод информации о счете
+ const outputDiv = document.getElementById('output');
+ outputDiv.innerHTML = `<p>Владелец: ${account.owner}</p>`;
+ outputDiv.innerHTML += `<p>Баланс: $${account.getBalance().toFixed(2)}</p>`;
+ </script>
+</body>
+</html>

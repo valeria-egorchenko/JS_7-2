@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Информация о животных</title>
+  </head>
+    <body>
+     <h1>Информация о животных</h1>
+     <div id="output"></div>
+    <script>
+ // Создаем базовый класс Animal
+     class Animal {
+     constructor(name) {
+     this.name = name;
+    }
+     makeSound() {
+      return "Животное издает звук";
+    }
+    }
+ // Создаем классы-наследники
+     class Cat extends Animal {
+       makeSound() {
+       return "Кот мяукает: Мяу!";
+     }
+     }
+     class Dog extends Animal {
+       makeSound() {
+       return "Собака лает: Гав!";
+     }
+     }
+ // Запрашиваем у пользователя тип животного и выводим информацию
+     const animalType = prompt('Введите тип животного (cat или dog):');
+          let animal;
+
+     if (animalType === 'cat') {
+      animal = new Cat('Кот');
+    } else if (animalType === 'dog') {
+     animal = new Dog('Собака');
+    } else {
+     animal = new Animal('Неизвестное животное');
+    }
+ const outputDiv = document.getElementById('output');
+ outputDiv.innerHTML = `<p>Имя: ${animal.name}</p>`;
+ outputDiv.innerHTML += `<p>Звук: ${animal.makeSound()}</p>`;
+ </script>
+</body>
+</html>

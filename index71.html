@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <title>Пример 71</title>
+</head>
+<body>
+    <div id="output"></div>
+    <script type="text/javascript">
+        // Класс фигуры
+        class Figure {
+            constructor(type) {
+                this.type = type;
+            }
+            // Вычисляемое свойство для получения информации о фигуре
+            get info() {
+                return `Это ${this.type}`;
+            }
+        }
+
+        // Класс для работы с прямоугольниками
+        class Rectangle extends Figure {
+            constructor() {
+                super('прямоугольник');
+                this.width = parseFloat(getValidInput('Введите ширину прямоугольника:'));
+                this.height = parseFloat(getValidInput('Введите высоту прямоугольника:'));
+            }
+            // Вычисляемое свойство для вычисления площади
+            get area() {
+                return this.width * this.height;
+            }
+        }
+
+        // Класс для работы с кругами
+        class Circle extends Figure {
+            constructor() {
+                super('круг');
+                this.radius = parseFloat(getValidInput('Введите радиус круга:'));
+            }
+            // Вычисляемое свойство для вычисления длины окружности
+            get circumference() {
+                return 2 * Math.PI * this.radius;
+            }
+        }
+
+        // Функция для получения необходимого числового ввода от пользователя
+        function getValidInput(promptMessage) {
+            let input;
+            do {
+                input = prompt(promptMessage);
+                if (!isValidNumber(input)) {
+                    alert('Ошибка! Введите корректное положительное число.');
+                }
+            } while (!isValidNumber(input));
+            return input;
+        }
+
+        // Функция для проверки, что введенное значение является положительным числом
+        function isValidNumber(value) {
+            const parsedValue = parseFloat(value);
+            return !isNaN(parsedValue) && isFinite(parsedValue) && parsedValue >= 0;
+        }
+
+        // Создаем экземпляры классов
+        const rect = new Rectangle();
+        const circle = new Circle();
+
+        // Создаем элементы для вывода результатов
+        const outputDiv = document.getElementById('output');
+        const rectInfo = document.createElement('p');
+        const rectArea = document.createElement('p');
+        const circleInfo = document.createElement('p');
+        const circleCircumference = document.createElement('p');
+
+        // Заполняем элементы текстом
+        rectInfo.textContent = rect.info;
+        rectArea.textContent = `Площадь прямоугольника: ${rect.area}`;
+        circleInfo.textContent = circle.info;
+        circleCircumference.textContent = `Длина окружности круга: ${circle.circumference}`;
+
+        // Добавляем элементы в div
+        outputDiv.appendChild(rectInfo);
+        outputDiv.appendChild(rectArea);
+        outputDiv.appendChild(circleInfo);
+        outputDiv.appendChild(circleCircumference);
+    </script>
+</body>
+</html>
