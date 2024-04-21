@@ -75,11 +75,15 @@ while (true) {
  }    
  }    
     
- const outputDiv = document.getElementById('output');    
- outputDiv.innerHTML += `<p>Студент с наивысшим средним баллом: </p>`;    
- outputDiv.innerHTML += `<p>Имя: ${topStudent.name}</p>`;    
- outputDiv.innerHTML += `<p>Возраст: ${topStudent.age}</p>`;    
- outputDiv.innerHTML += `<p>Средний балл: ${topStudent.averageScore}</p>`;    
+ const outputDiv = document.getElementById('output');
+ if (outputDiv) {
+    outputDiv.innerHTML += '<p>Студент с наивысшим средним баллом: </p>';
+    outputDiv.innerHTML += `<p>Имя: ${topStudent.name}</p>`;
+    outputDiv.innerHTML += `<p>Возраст: ${topStudent.age}</p>`;
+    outputDiv.innerHTML += `<p>Средний балл: ${topStudent.averageScore}</p>`;
+} else {
+    console.log("Элемент с идентификатором 'output' не найден.");
+}
     
  </script>    
     

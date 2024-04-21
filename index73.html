@@ -13,16 +13,18 @@
 <script> 
     const products = []; 
     function addProduct() { 
-        let validName = false;
-        let nameInput;
-        while (!validName) {
-            nameInput = prompt('Введите название товара:');
-            if (nameInput && /^[A-Za-z0-9]+$/.test(nameInput)) {
-                validName = true;
-            } else {
-                alert('Введите корректное название товара.');
-            }
-        }
+        let validName = false; 
+let nameInput; 
+
+while (!validName) { 
+    nameInput = prompt('Введите название товара:'); 
+    if (/^[A-Za-zА-Яа-яЁё\s]+$/.test(nameInput) && nameInput.trim() !== '') { 
+        validName = true; 
+    } else { 
+        alert('Введите корректное название товара.'); 
+    } 
+}
+
         
         let validPrice = false;
         let price;
